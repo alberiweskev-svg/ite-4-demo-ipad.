@@ -5,3 +5,5 @@ Repository separato per il collaudo della versione 4.0. Non utilizzare dati real
 GitHub Pages: pubblicazione tramite workflow dedicato, dopo attivazione GitHub Actions.
 
 Aggiornamento demo: correzione comandi schede anagrafiche per iPad.
+
+Aggiornamento collaudo: rettifica orari effettivi con tracciamento dello storico (24/10/2026).
