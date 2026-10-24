@@ -9,3 +9,5 @@ Aggiornamento demo: correzione comandi schede anagrafiche per iPad.
 Aggiornamento collaudo: rettifica orari effettivi con tracciamento dello storico (24/10/2026).
 
 Aggiornamento: anteprima stampa iPad integrata e ritorno al calendario.
+
+Aggiornamento demo 4.0: layout responsive iPad verticale/orizzontale e sezione impostazioni (24 ottobre 2026).
