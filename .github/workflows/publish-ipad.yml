@@ -1,0 +1,64 @@
+name: Publish ITE 4.0 iPad demo
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: ite-4-ipad-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout tested 4.0 development source
+        uses: actions/checkout@v4
+        with:
+          repository: alberiweskev-svg/ite-demo-ipad
+          ref: sviluppo-4.0.0-base
+          path: source
+          persist-credentials: false
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify application and backup
+        working-directory: source
+        run: |
+          node --check app.js
+          node dev/test_400_backup.cjs
+          node dev/test_400_persist.cjs
+          node dev/test_400_archive_recovery.cjs
+          node dev/test_400_appointments.cjs
+          node dev/test_400_operator_hours.cjs
+          node dev/test_400_revision_hours.cjs
+          node dev/test_400_revision_audit.cjs
+          node dev/test_400_revision_attachments.cjs
+          node dev/sync_sri.cjs --write
+          node dev/sync_sri.cjs
+      - name: Build isolated public demo
+        run: |
+          mkdir -p site
+          cd source
+          git ls-files -z | tar --null -T - -cf - | tar -xf - -C ../site
+          cp vault.js index.html ../site/
+          rm -rf ../site/.github ../site/dev
+          printf 'User-agent: *\nDisallow: /\n' > ../site/robots.txt
+          test -s ../site/index.html
+          test -s ../site/app.js
+          test -s ../site/vault.js
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Deploy separate Pages site
+        id: deployment
+        uses: actions/deploy-pages@v4
