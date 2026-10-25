@@ -13,3 +13,5 @@ Aggiornamento: anteprima stampa iPad integrata e ritorno al calendario.
 Aggiornamento demo 4.0: layout responsive iPad verticale/orizzontale e sezione impostazioni (24 ottobre 2026).
 
 Pubblicazione demo 4.0: selezione fascia oraria del calendario e colore tecnico nell'anagrafica; regressioni superate (24 ottobre 2026).
+
+Aggiornamento layout 4.0: rimosso il doppio offset del menu laterale su iPad; breakpoint coerenti, header adattivo (25 ottobre 2026).
